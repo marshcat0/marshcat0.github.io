@@ -104,7 +104,7 @@ theme: fluid
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: https://github.com/marshcat0/marshcat0.github.io
+  repo: https://sUKeOIKqfd:e55e83d7ae5c85f780bf76d17b0a778d79815be3@e.coding.net/marshcat0/blog/blog.git
   branch: master
 
 # minifier
@@ -118,14 +118,14 @@ css_minifier:
   exclude:
     - '*.min.css'
 js_minifier:
-  enable: false
+  enable: true
   mangle: true
   output:
   compress:
   exclude:
     - '*.min.js'
 image_minifier:
-  enable: false
+  enable: true
   interlaced: false
   multipass: false
   optimizationLevel: 2
