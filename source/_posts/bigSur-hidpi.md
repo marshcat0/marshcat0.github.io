@@ -1,3 +1,8 @@
+---
+title: 为macOS bigsur开启HiDpi
+date: 2020-11-23 12:01:09
+tags:
+---
 ## 参考文档
 1. [为 macOS 10.15 开启 HiDPI，让 2K 显示器更舒适](https://sspai.com/post/57549)
 2. [SCALED RESOLUTIONS
@@ -12,7 +17,7 @@ for your MacBooks external Monitor](https://comsysto.github.io/Display-Override-
 
 大概解释一下文档3的意思：
 1. 在恢复模式终端运行`csrutil authenticated-root disable`(与文档1中`csrutil disable`方法类似)
-2. 重启回系统，终端运行`mount`，如图所示![mount](../img/hidpi/mount.png)
+2. 重启回系统，终端运行`mount`，如图所示![mount](./mount.png)
 则`DISK_PATH`为`/dev/disk1s1`（把最后的s+数字去掉）
 3. 随便创建一个挂载的目录，文中路径为`~/mount`，即为`MOUNT_PATH`
 4. 运行`sudo mount -o nobrowse -t apfs DISK_PATH MOUNT_PATH`（用上文的变量替换）
