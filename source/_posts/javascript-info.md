@@ -1,7 +1,7 @@
 ---
-title: javascript.info读书笔记
+title: javascript.info读书笔记 -- Prototype篇
 date: 2021-05-12 17:19:04
-tags:
+tags: javascript.info读书笔记
 ---
 > 本文记录自己在学习时的一些`notobal points`。一是为了在读书的时候，对每一小节进行总结，加深印象，提高学习效果，避免“看完即忘”；二是为了在之后回顾的时候，可以迅速地“取精华而废糟粕”，避免把大量的时间浪费在人尽皆知的简单知识上。
 
@@ -66,3 +66,48 @@ The default `"prototype"` is an object with the only property `constructor` that
 需要注意的是，JavaScript itself does not ensure the right `"constructor"` value.
 
 这一节的两道课后习题都可看下
+
+## Native prototypes
+![All of the built-in prototypes have Object.prototype on the top](prototype/native-prototypes-classes.svg)
+
+### Primitives
+The most intricate thing happens with strings, numbers and booleans.
+
+As we remember, they are not objects. But if we try to access their properties, temporary wrapper objects are created using built-in constructors String, Number and Boolean. They provide the methods and disappear.
+
+These objects are created invisibly to us and most engines optimize them out, but the specification describes it exactly this way. Methods of these objects also reside in prototypes, available as String.prototype, Number.prototype and Boolean.prototype.
+
+课后习题`Add the decorating "defer()" to functions`中关于`apply`的可以看看。
+
+## Prototype methods, objects without __proto__
+`__proto__`属性在浏览器端略微过时了。以下有三个现代的方法来替代它：
+1. [Object.create(proto, [descriptors])](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) – creates an empty object with given proto as [[Prototype]] and optional property descriptors.
+2. [Object.getPrototypeOf(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) – returns the [[Prototype]] of obj.
+3. [Object.setPrototypeOf(obj, proto)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) – sets the [[Prototype]] of obj to proto.
+
+通过`Object.create`的第二个参数（属性描述符），可以实现更加精确的属性拷贝：
+> We can use Object.create to perform an object cloning more powerful than copying properties in for..in:
+```js
+let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+```
+> This call makes a truly exact copy of obj, including all properties: enumerable and non-enumerable, data properties and setters/getters – everything, and with the right [[Prototype]].
+
+### Brief history
+> Don’t change [[Prototype]] on existing objects if speed matters
+Javascript引擎对于作用域链的查找做了优化，因此，如果在运行时(原文为`on the fly`)通过`Object.setPrototypeOf`或`obj.__proto__=`更改了原型，就会破坏这种优化，从而影响运行速度。
+
+### "Very plain" objects
+对对象进行赋值时，有一个有趣的现象：对`__proto__`的赋值有时会不生效。
+> That shouldn’t surprise us. The __proto__ property is special: it must be either an object or null. A string can not become a prototype.
+解决方法有：
+1. 使用`Map` instead of `plain objects`
+2. 使用`Object.create(null)`
+
+### Summary
+Other methods:
+
+1. [Object.keys(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) / [Object.values(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values) / [Object.entries(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries) – returns an array of enumerable own string property names/values/key-value pairs.
+2. [Object.getOwnPropertySymbols(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols) – returns an array of all own symbolic keys.
+3. [Object.getOwnPropertyNames(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames) – returns an array of all own string keys.
+4. [Reflect.ownKeys(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys) – returns an array of all own keys. 等于`Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))`
+5. [obj.hasOwnProperty(key)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty): returns true if obj has its own (not inherited) key named key.
