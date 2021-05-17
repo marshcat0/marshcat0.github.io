@@ -117,10 +117,12 @@ const blob = await resizeImg(file)
 form.append('file', blob)
 ```
 
-### 安卓端文字偏上，某些机型尤其明显
+### 安卓端文字偏上，某些机型尤其明显（使用flex垂直居中时）
 ！不知道咋解决，有人知道的话私信我一下谢谢～（叹气）
 
 ### 不同逻辑分辨率的设备兼容
 鉴于现在主流浏览器对于viewport 单位 (vw, vh, vmin, vmax)支持良好，因此在对于不同逻辑分辨率的设备，可以使用`postcss-px-to-viewport`插件，来将`px`单位改成`vw`单位。
-需要注意的是，`postcss-px-to-viewport`这个插件`npm`源与`github`源不一致，`npm`源会导致一些选项，如`include`选项无效，而由于[npm的bug](https://github.com/npm/cli/issues/624)，在`docker`中用`npm`安装`github`源的文件会失败，从而导致自动部署失败。
+需要注意的是: 
+1. `postcss-px-to-viewport`这个插件`npm`源与`github`源不一致，`npm`源会导致一些选项，如`include`选项无效，而由于[npm的bug](https://github.com/npm/cli/issues/624)，在`docker`中用`npm`安装`github`源的文件会失败，从而导致自动部署失败。
 参考资料：[vant 浏览器适配](https://vant-contrib.gitee.io/vant/#/zh-CN/advanced-usage#viewport-bu-ju)
+2. 经过`px`到`vw`的转换后，对于小数点像素（如`1.3456px`），不同的浏览器有不同的处理策略，可能会导致使用同样样式的线条，有的粗有的细的问题
