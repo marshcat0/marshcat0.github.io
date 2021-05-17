@@ -3,7 +3,7 @@ title: javascript.info读书笔记 -- Prototype篇
 date: 2021-05-12 17:19:04
 tags: javascript.info读书笔记
 ---
-> 本文记录自己在学习时的一些`notobal points`。一是为了在读书的时候，对每一小节进行总结，加深印象，提高学习效果，避免“看完即忘”；二是为了在之后回顾的时候，可以迅速地“取精华而废糟粕”，避免把大量的时间浪费在人尽皆知的简单知识上。
+> 本文记录自己在学习时的一些`notable points`。一是为了在读书的时候，对每一小节进行总结，加深印象，提高学习效果，避免“看完即忘”；二是为了在之后回顾的时候，可以迅速地“取精华而废糟粕”，避免把大量的时间浪费在人尽皆知的简单知识上。
 
 # Prototypes, inheritance
 [文章地址](https://javascript.info/prototype-inheritance)
