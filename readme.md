@@ -10,4 +10,8 @@
 
 # 关于写作
 
-## 
+## 关于vercel
+
+由于`github pages`在境内的访问实在是一言难尽，因此使用了`vercel`，会快一点。评论插件`waline`也使用了`vercel`。
+
+[参考地址](https://www.iaia.cc/posts/2418998582.html)
