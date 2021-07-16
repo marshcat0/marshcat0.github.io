@@ -92,9 +92,9 @@ Garden前端在Q2上线了新版本检测功能，以下是对该实现方法的
 4. 对于`Last-Modified`验证字段，则不存在(3)中所说的，因为仅凭修改时间，clientB无法判断clientA是否有正确的缓存文件。
 
 5. 其他参考：
-Stackoverflow的[这篇回答](https://stackoverflow.com/a/16817752/6028514)，如下：![](so_200.png)  
-（回答中提到的[spec](https://www.w3.org/TR/2014/WD-XMLHttpRequest-20140130/)提示文档已经过时，如果小伙伴们发现了更加及时、权威的文章，欢迎补充。）
-意思大概是，即使服务器返回了`304 Not Modified`，xhr返回结果中的status仍会是200，除非在请求头中自定义了缓存的验证（通过`If-None-Match`或` If-Modified-Since`）  
+    Stackoverflow的[这篇回答](https://stackoverflow.com/a/16817752/6028514)，如下：![](so_200.png)  
+    （回答中提到的[spec](https://www.w3.org/TR/2014/WD-XMLHttpRequest-20140130/)提示文档已经过时，如果小伙伴们发现了更加及时、权威的文章，欢迎补充。）
+    意思大概是，即使服务器返回了`304 Not Modified`，xhr返回结果中的status仍会是200，除非在请求头中自定义了缓存的验证，即：xhr请求头中自定义`If-None-Match`或    `If-Modified-Since`头。但是加了这两个头之后，对于`If-None-Match`，xhr请求头的`If-None-Match`必须要和服务器返回的`Etag`一致，xhr返回结果中的status才会是304。
 
 ## 参考资料
 1. [realContentHash](https://webpack.js.org/configuration/optimization/#optimizationrealcontenthash)
