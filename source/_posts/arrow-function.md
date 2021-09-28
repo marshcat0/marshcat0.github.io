@@ -1,0 +1,84 @@
+---
+title: arrow-function
+date: 2021-09-28 16:58:31
+tags:
+---
+# 箭头函数
+
+1. js存在一些在其他地方运行的函数，如`arr.forEach(func)`和`setTimeout(func)`。这些情况下我们一般不想离开当前上下文，这时候可以用到箭头函数。
+
+2. 箭头函数没有自己的`this`，如果箭头函数内访问到了`this`，会从外侧取.
+如：
+
+    ```js
+    let group = {
+      title: "Our Group",
+      students: ["John", "Pete", "Alice"],
+
+      showList() {
+        this.students.forEach(
+          student => alert(this.title + ': ' + student)
+        );
+      }
+    };
+    group.showList();
+    ```
+
+    箭头函数中的`this`与外侧`showList`中的`this`相同。
+    与普通函数做比较：
+
+    ```js
+    let group = {
+      title: "Our Group",
+      students: ["John", "Pete", "Alice"],
+    
+      showList() {
+        this.students.forEach(function(student) {
+          // Error: Cannot read property 'title' of undefined
+          alert(this.title + ': ' + student);
+        });
+      }
+    };
+    
+    group.showList()
+    ```
+
+    会报错，因为`forEach`运行函数时，`this`默认是`undefined`(不会影响箭头函数，因为箭头函数根本没有`this`)
+
+3. 箭头函数与`bind`的细微差别（`=>` 与 `.bind(this)`）
+
+    * `.bind(this)`创建函数的“绑定版本“
+
+    * `=>` 不创建任何绑定：箭头函数只是没有this，对`this`的查找与正常变量的搜索相同（从外部的词法作用域查找）
+
+4. 箭头函数没有`arguments`
+
+    这一点在装饰函数时很有用，因为此时我们需要转发当前函数调用的`this`和`arguments`。如：
+
+    ```js
+    function defer(f, ms) {
+      return function() {
+        setTimeout(() => f.apply(this, arguments), ms);
+      };
+    }
+    
+    function sayHi(who) {
+      alert('Hello, ' + who);
+    }
+    
+    let sayHiDeferred = defer(sayHi, 2000);
+    sayHiDeferred("John"); // Hello, John after 2 seconds
+    ```
+
+    如果不用箭头函数来写的话，`defer`函数是这样的：
+
+    ```js
+      function defer(f, ms) {
+        return function(...args) {
+          let ctx = this;
+          setTimeout(function() {
+            return f.apply(ctx, args);
+          }, ms);
+        };
+      }
+    ```
