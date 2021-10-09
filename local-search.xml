@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>常用的算法</title>
+    <link href="/2021/10/09/%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AE%97%E6%B3%95/"/>
+    <url>/2021/10/09/%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AE%97%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h2 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h2><p>鉴于网上搜出来的快排的代码乱七八糟的，自己还是整理一份。取自大学C语言教材严蔚敏版本。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> partition = <span class="hljs-function">(<span class="hljs-params">A, low, high</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> pivot = A[low]<br>  <span class="hljs-keyword">while</span>(low &lt; high) &#123;<br>    <span class="hljs-keyword">while</span>(low &lt; high &amp;&amp; A[high] &gt;= pivot) high--<br>    A[low] = A[high]<br>    <span class="hljs-keyword">while</span>(low &lt; high &amp;&amp; A[low] &lt;= pivot) low++<br>    A[high] = A[low]<br>  &#125;<br>  A[low] = pivot<br><br>  <span class="hljs-keyword">return</span> low<br>&#125;<br><span class="hljs-keyword">const</span> quickSort = <span class="hljs-function">(<span class="hljs-params">array, low, high</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (low &lt; high) &#123;<br>    <span class="hljs-keyword">const</span> pivotPos = partition(array, low, high)<br>    quickSort(array, low, pivotPos - <span class="hljs-number">1</span>)<br>    quickSort(array, pivotPos + <span class="hljs-number">1</span>, high)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>关于new操作符</title>
     <link href="/2021/09/30/%E5%85%B3%E4%BA%8Enew%E6%93%8D%E4%BD%9C%E7%AC%A6/"/>
     <url>/2021/09/30/%E5%85%B3%E4%BA%8Enew%E6%93%8D%E4%BD%9C%E7%AC%A6/</url>
