@@ -20,7 +20,13 @@ for your MacBooks external Monitor](https://comsysto.github.io/Display-Override-
 
 大概解释一下文档3的意思：
 
-1. 在恢复模式终端运行`csrutil authenticated-root disable`(与文档1中`csrutil disable`方法类似)
+0. 关闭mac的<文件保险箱>功能
+1. 在恢复模式终端运行(与文档1中`csrutil disable`方法类似)
+```shell
+csrutil disable
+csrutil authenticated-root disable
+```
+
 2. 重启回系统，终端运行`mount`，如图所示![mount](./mount.png)
 则`DISK_PATH`为`/dev/disk1s1`（把最后的s+数字去掉）
 3. 随便创建一个挂载的目录，文中路径为`~/mount`，即为`MOUNT_PATH`
